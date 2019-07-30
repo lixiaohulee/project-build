@@ -10,6 +10,9 @@ import {lee} from '@/math'
 // lee()
 import test from '@/test'
 // test()
+const mainFunc = () => console.log(3333)
+const arr = [...[12,3,4,56,'lee']]
+mainFunc()
 export default {
   name: "AboutMe",
   data() {

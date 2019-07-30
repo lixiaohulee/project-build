@@ -6,12 +6,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: {
-        app: './src/index.js',
+        app: './src/main.js',
     },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        chunkFilename: '[name].[contenthash].bundle.js'
+        chunkFilename: '[name].[contenthash].js'
     },
     resolve: {
         alias: {
@@ -20,6 +20,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                use: ['babel-loader'],
+                include: path.resolve(__dirname, 'src')
+            },
             {
                 test: /\.vue$/,
                 use: ['vue-loader'],
