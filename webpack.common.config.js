@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+const resolve = dir => path.resolve(__dirname, dir)
 
 module.exports = {
     entry: {
@@ -10,12 +11,13 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: resolve('dist'),
         chunkFilename: '[name].[contenthash].js'
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, 'src')
+            '@': resolve('src'),
+            'lib': resolve('lib')
         }
     },
     module: {
@@ -23,17 +25,17 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: ['babel-loader'],
-                include: path.resolve(__dirname, 'src')
+                include: resolve('src')
             },
             {
                 test: /\.vue$/,
                 use: ['vue-loader'],
-                include: path.resolve(__dirname, 'src')
+                include: resolve('src')
             },
             {
                 test: /\.less$/,
                 use: ['style-loader', 'css-loader', 'less-loader'],
-                include: path.resolve(__dirname, 'src')
+                include: resolve('src')
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -44,11 +46,12 @@ module.exports = {
                             limit: 8192
                         } 
                     }
-                ]
+                ],
             },
             {
                 test: /\.(woff|woff2|ttf|eot|otf)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
+                include: resolve('lib')
             }
         ]
     },
@@ -56,7 +59,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'webpack demo',
             filename: 'index.html',
-            template: path.resolve(__dirname, 'index.html'),
+            template:  resolve('index.html'),
             inject: true
         }),
         new CleanWebpackPlugin(),

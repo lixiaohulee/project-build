@@ -1,17 +1,13 @@
 <template>
-    <section>hello world</section>
+    <section>
+        <i class="iconfont">&#xe677;</i>
+        <i class="iconfont">&#xe676;</i>
+        <i class="iconfont">&#xe66b;</i>
+    </section>
 </template>
 <script>
-import {lee} from '@/math'
-// lee()
-import test from '@/test'
-// test()
 export default {
     name: 'MyHome',
-    created() {
-        lee()
-        test()
-    }
 }
 </script>
 <style lang="less" scoped>
