@@ -1,8 +1,11 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const common = require('./webpack.common.config')
 const WebpackDeepScopePlugin = require('webpack-deep-scope-plugin').default
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+process.env.NODE_ENV = 'production'
+
+const common = require('./webpack.common.config')
 
 module.exports = merge(common, {
     mode: 'production',
@@ -45,6 +48,6 @@ module.exports = merge(common, {
         new BundleAnalyzerPlugin({
             generateStatsFile: true,
             analyzerMode: 'disabled'
-        })
+        }),
     ]
 })

@@ -2,10 +2,14 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
+const devMode = process.env.NODE_ENV !== 'production'
+console.log(process.env.NODE_ENV)
 
-module.exports = {
+const common = {
+    mode: 'none',
     entry: {
         app: './src/main.js',
     },
@@ -34,8 +38,12 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader'],
-                include: resolve('src')
+                use: [
+                    'style-loader',
+                    'css-loader', 
+                    'postcss-loader',
+                    'less-loader'
+                ],
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -63,6 +71,29 @@ module.exports = {
             inject: true
         }),
         new CleanWebpackPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
     ]
 }
+
+const miniCss = {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+        hmr: devMode
+    }
+}
+
+devMode 
+    ? common.module.rules.forEach(rule => {
+        /\/\\\.less\$\//.test(rule.test)
+            ? rule.use.splice(0, 1, miniCss)
+            : null
+    }) : null
+
+!devMode 
+    ? common.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
+    ) : null
+
+module.exports = common

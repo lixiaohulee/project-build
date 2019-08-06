@@ -1,7 +1,9 @@
 const path = require('path')
 const merge = require('webpack-merge')
-const common = require('./webpack.common.config')
 
+process.env.NODE_ENV = 'development'
+
+const common = require('./webpack.common.config')
 
 module.exports = merge(common, {
     mode: 'development',

@@ -35,7 +35,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+section {
+    transform: translateX(100px);
+    transition: transform 1s linear;
+    border-radius: 1px;
+    // all: initial;
+    color: hwb(120 44% 50%);
+    break-inside: avoid;
+    font-variant: small-caps;
+    margin-inline-start: 10px;
+}
 </style>
 
 
