@@ -1,8 +1,5 @@
 <template>
     <section>
-        <i class="iconfont">&#xe677;</i>
-        <i class="iconfont">&#xe676;</i>
-        <i class="iconfont">&#xe66b;</i>
         <div class="test">{{name}}</div>
         <div>{{username}}</div>
         <button @click="handleInit">initUserName</button>
@@ -18,10 +15,6 @@
 </template>
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
-import api from 'api'
-import UiDialog from '~/ui-dialog'
-import UiToast from '~/ui-toast'
-import '../../lib/css/iconfont/iconfont.less'
 export default {
     name: 'MyHome',
     components: {
