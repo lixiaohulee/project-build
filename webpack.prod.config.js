@@ -2,6 +2,7 @@ const path = require('path')
 const merge = require('webpack-merge')
 const WebpackDeepScopePlugin = require('webpack-deep-scope-plugin').default
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 process.env.NODE_ENV = 'production'
 
@@ -49,5 +50,8 @@ module.exports = merge(common, {
             generateStatsFile: true,
             analyzerMode: 'disabled'
         }),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css'
+        })
     ]
 })

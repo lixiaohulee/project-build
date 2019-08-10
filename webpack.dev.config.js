@@ -1,5 +1,7 @@
 const path = require('path')
 const merge = require('webpack-merge')
+const proxy = require('./config/proxyTable')
+const port = require('./config/port')
 
 process.env.NODE_ENV = 'development'
 
@@ -11,6 +13,8 @@ module.exports = merge(common, {
     devServer: {
         contentBase: './dist',
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: proxy,
+        port: port
     }
 })

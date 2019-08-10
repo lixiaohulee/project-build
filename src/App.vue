@@ -7,7 +7,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import url('../lib/css/iconfont/iconfont.css');
 </style>
 
 

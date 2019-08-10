@@ -6,9 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
 const devMode = process.env.NODE_ENV !== 'production'
-console.log(process.env.NODE_ENV)
 
-const common = {
+module.exports = {
     mode: 'none',
     entry: {
         app: './src/main.js',
@@ -21,7 +20,10 @@ const common = {
     resolve: {
         alias: {
             '@': resolve('src'),
-            'lib': resolve('lib')
+            'lib': resolve('lib'),
+            'js-lib': resolve('src/lib/js'),
+            'api': resolve('src/lib/js/request/api'),
+            '~': resolve('src/components')
         }
     },
     module: {
@@ -39,7 +41,7 @@ const common = {
             {
                 test: /\.less$/,
                 use: [
-                    'style-loader',
+                    devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader', 
                     'postcss-loader',
                     'less-loader'
@@ -59,7 +61,7 @@ const common = {
             {
                 test: /\.(woff|woff2|ttf|eot|otf)$/,
                 use: ['file-loader'],
-                include: resolve('lib')
+                include: resolve('src')
             }
         ]
     },
@@ -71,29 +73,6 @@ const common = {
             inject: true
         }),
         new CleanWebpackPlugin(),
-        new VueLoaderPlugin(),
+        new VueLoaderPlugin()
     ]
 }
-
-const miniCss = {
-    loader: MiniCssExtractPlugin.loader,
-    options: {
-        hmr: devMode
-    }
-}
-
-devMode 
-    ? common.module.rules.forEach(rule => {
-        /\/\\\.less\$\//.test(rule.test)
-            ? rule.use.splice(0, 1, miniCss)
-            : null
-    }) : null
-
-!devMode 
-    ? common.plugins.push(
-        new MiniCssExtractPlugin({
-            filename: '[name].css'
-        })
-    ) : null
-
-module.exports = common
