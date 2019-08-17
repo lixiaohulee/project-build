@@ -41,7 +41,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader', 
                     'postcss-loader',
                     'less-loader'

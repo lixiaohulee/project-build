@@ -5,12 +5,7 @@
         <button @click="handleInit">initUserName</button>
 
         <div class="box">sdsd</div>
-        <ui-dialog :show="true">
-            <div slot="content" class="text">
-                sdfsdfsadfsd
-            </div>
-        </ui-dialog>
-        <!-- <ui-toast :show="true" :content="'sdfsdfs'"></ui-toast> -->
+       
     </section>
 </template>
 <script>
@@ -18,8 +13,6 @@ import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 export default {
     name: 'MyHome',
     components: {
-        UiDialog,
-        UiToast
     },
     created() {
         this.hanldeGettestList()
@@ -35,9 +28,6 @@ export default {
             initUserNameAsync: 'userModule/setUsername'
         }),
         hanldeGettestList() {
-            api.getTestList({}).then(res => {
-                const { code, msg } = res
-            })
         }
     },
     computed: {
@@ -52,14 +42,14 @@ export default {
 </script>
 <style lang="less" scoped>
 section {
-    // transform: translateX(100px);
-    // transition: transform 1s linear;
-    // border-radius: 1px;
-    // // all: initial;
-    // color: hwb(120 44% 50%);
-    // break-inside: avoid;
-    // font-variant: small-caps;
-    // margin-inline-start: 10px;
+    transform: translateX(100px);
+    transition: transform 1s linear;
+    border-radius: 1px;
+    // all: initial;
+    color: hwb(120 44% 50%);
+    break-inside: avoid;
+    font-variant: small-caps;
+    margin-inline-start: 10px;
     .test {
         font-size: 13px;
     }
