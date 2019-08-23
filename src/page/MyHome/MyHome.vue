@@ -14,6 +14,7 @@ export default {
     name: 'MyHome',
     components: {
     },
+    
     created() {
         this.hanldeGettestList()
     },

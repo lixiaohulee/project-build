@@ -13,17 +13,13 @@ module.exports = {
         app: './src/main.js',
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[hash].bundle.js',
         path: resolve('dist'),
         chunkFilename: '[name].[contenthash].js'
     },
     resolve: {
         alias: {
             '@': resolve('src'),
-            'lib': resolve('lib'),
-            'js-lib': resolve('src/lib/js'),
-            'api': resolve('src/lib/js/request/api'),
-            '~': resolve('src/components')
         }
     },
     module: {
