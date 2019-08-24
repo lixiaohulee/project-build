@@ -1,7 +1,17 @@
 #!/usr/bin/env node
 
+const fs = require('fs')
+const path = require('path')
 const shell = require('shelljs')
 const inquirer = require('inquirer')
+const handlebars = require('handlebars')
+
+const templateSource = 
+    "<template>\n" + 
+    "    <section class=\"wrapper\"></section>\n" +
+    "</template>\n" +
+    "<script src=\"./{{pageName}}.js\" type=\"text/ecmascript-6\"></script>\n" +
+    "<style lang=\"less\" src=\"./{{pageName}}.less\" rel=\"stylesheet/less\" scoped></style>" 
 
 inquirer.prompt([
     {
@@ -38,5 +48,24 @@ inquirer.prompt([
         choices: ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'beforeDestroy', 'destoryed']
     }
 ]).then(answers => {
-    console.log(answers)
+    const { pageName } = answers
+    const pagePath = path.resolve(__dirname, `../src/page/${pageName}`)
+
+    fs.mkdir(pagePath, { recursive: true }, err => {
+        if (err) throw err
+
+        ['.vue'].forEach(suffix => {      
+            writeFile(pagePath, `${pageName}${suffix}`, generateTemplate(templateSource, answers))
+        })
+    })
 })
+
+function writeFile(path, filename, template) {
+    fs.writeFile(`${path}/${filename}`, template, err => {
+        if (err) throw err
+    })
+}
+
+function generateTemplate(source, data) {
+    return handlebars.compile(source)(data)
+}
