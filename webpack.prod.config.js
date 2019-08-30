@@ -3,12 +3,16 @@ const merge = require('webpack-merge')
 const WebpackDeepScopePlugin = require('webpack-deep-scope-plugin').default
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const WebpackBuildNotifier = require('webpack-build-notifier')
 
 process.env.NODE_ENV = 'production'
 
 const common = require('./webpack.common.config')
+const smp = new SpeedMeasurePlugin()
 
-module.exports = merge(common, {
+module.exports = smp.wrap(merge(common, {
     mode: 'production',
     devtool: 'cheap-module-source-map',
     optimization: {
@@ -52,6 +56,10 @@ module.exports = merge(common, {
         }),
         new MiniCssExtractPlugin({
             filename: '[name].[hash].css'
-        })
+        }),
+        new ProgressBarPlugin({
+            clear: false
+        }),
+        new WebpackBuildNotifier()
     ]
-})
+}))

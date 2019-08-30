@@ -7,12 +7,46 @@ const inquirer = require('inquirer')
 const handlebars = require('handlebars')
 
 const templateSource = 
+    "<!--\n" +
+    "@file {{pageName}}.value\n" +
+    "@author {{author}}" +
+    "@since {{createTime}}\n" +
+    "-->\n" +
     "<template>\n" + 
-    "    <section class=\"wrapper\"></section>\n" +
+    "    <section class=\"{{pageName}}-wrapper\"></section>\n" +
     "</template>\n" +
     "<script src=\"./{{pageName}}.js\" type=\"text/ecmascript-6\"></script>\n" +
     "<style lang=\"less\" src=\"./{{pageName}}.less\" rel=\"stylesheet/less\" scoped></style>" 
 
+const styleSource = 
+    "/**\n" +
+    "* @file {{pageName}}.less\n" +
+    "* @author {{author}}" +
+    "* @since {{createTime}}\n" +
+    "*/\n" +
+    ".{{pageName}}-wrapper {\n" + 
+    "    background-color: red;\n" +
+    "}"
+
+const jsSource = 
+    "/**\n" +
+    "* @file {{pageName}}.js\n" +
+    "* @author {{author}}" +
+    "* @since {{createTime}}\n" +
+    "*/\n" +
+    "export default {\n" +
+    "    name: '{{pageName}}',\n" +
+    "    components: {},\n" +
+    "    props: {},\n" +
+    "    data() {\n" +
+    "        return {}\n" +
+    "    },\n" +
+    "    created() {},\n" +
+    "    mounted() {},\n" +
+    "    methods: {},\n" +
+    "    computed: {},\n" +
+    "    watch: {}\n" +
+"}"
 inquirer.prompt([
     {
         type: 'input',
@@ -51,13 +85,28 @@ inquirer.prompt([
     const { pageName } = answers
     const pagePath = path.resolve(__dirname, `../src/page/${pageName}`)
 
-    fs.mkdir(pagePath, { recursive: true }, err => {
-        if (err) throw err
+    if(!shell.which('git')) {
+        console.error('can not use git')
+    }else {
+        shell.exec('git config user.email', (code, stdout, stderr) => {
+            if (stderr) throw stderr
+            answers.userEmail = stdout
 
-        ['.vue'].forEach(suffix => {      
-            writeFile(pagePath, `${pageName}${suffix}`, generateTemplate(templateSource, answers))
+            shell.exec('git config user.name', (code, stdout, stderr) => {
+                if (stderr) throw stderr
+                answers.userName = stdout
+                answers.author = answers.userName
+
+                fs.mkdir(pagePath, { recursive: true }, err => {
+                    if (err) throw err
+                    answers.createTime = new Date().toLocaleString()
+                    writeFile(pagePath, `${pageName}.vue`, generateTemplate(templateSource, answers))
+                    writeFile(pagePath, `${pageName}.less`, generateTemplate(styleSource, answers))
+                    writeFile(pagePath, `${pageName}.js`, generateTemplate(jsSource, answers))
+                })
+            })
         })
-    })
+    }
 })
 
 function writeFile(path, filename, template) {

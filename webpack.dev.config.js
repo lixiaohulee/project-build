@@ -2,6 +2,7 @@ const path = require('path')
 const merge = require('webpack-merge')
 const proxy = require('./config/proxyTable')
 const port = require('./config/port')
+const DashBoardPlugin = require('webpack-dashboard/plugin')
 
 process.env.NODE_ENV = 'development'
 
@@ -16,5 +17,8 @@ module.exports = merge(common, {
         historyApiFallback: true,
         proxy: proxy,
         port: port
-    }
+    },
+    plugins: [
+        new DashBoardPlugin()
+    ]
 })
