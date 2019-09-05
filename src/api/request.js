@@ -10,9 +10,12 @@ axios.defaults.baseURL = ''
 axios.defaults.method = 'post'
 axios.defaults.timeout = 1000 * 60
 
-export default function(reqConf = Object.create(null)) {
+export default function(url, reqConf = Object.create(null)) {
     return new Promise((resolve, reject) => {
-        axios(reqConf).then(res => {
+        axios({
+            url,
+            ...reqConf
+        }).then(res => {
             resolve(res)
         }).catch(err => {
             reject(err)

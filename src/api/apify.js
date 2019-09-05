@@ -7,8 +7,10 @@ import request from './request'
 
 export default function(apis = Object.create(null)) {
     Object.keys(apis).forEach(key => {
-        apis[key] = reqConf => request(reqConf)
+        const origin = apis[key]
+        apis[key] = reqConf => request(origin, reqConf)
     })
+    return apis
 }
 
 

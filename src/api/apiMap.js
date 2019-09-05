@@ -5,5 +5,5 @@
 
 
 export default {
-    testApi: '/testApi'
+    testApi: '/api/testApi'
 }

@@ -29,7 +29,9 @@ axios.interceptors.request.use(config => {
 
 //请求后置拦截器
 axios.interceptors.response.use(response => {
-    return response
+    if (response.status === 200) {
+        return response.data
+    }
 }, error => {
     return Promise.reject(error)
 })
