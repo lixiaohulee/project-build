@@ -5,9 +5,11 @@
 import Mock from 'mockjs'
 import mockMap from '../config/mockMap'
 
-Object.keys(mockMap).forEach(key => {
-    if (mockMap[key].enable) {
-        let reg = new RegExp(key)
-        Mock.mock(reg, mockMap[key].data)
-    }
-})
+if (process.env.NODE_ENV === 'development') {
+    Object.keys(mockMap).forEach(key => {
+        if (mockMap[key].enable) {
+            let reg = new RegExp(key)
+            Mock.mock(reg, mockMap[key].data)
+        }
+    })
+}

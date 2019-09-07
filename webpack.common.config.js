@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MyPlugin = require('./myPlugin')
 
 const resolve = dir => path.resolve(__dirname, dir)
 const devMode = process.env.NODE_ENV !== 'production'
@@ -70,6 +71,7 @@ module.exports = {
             inject: true
         }),
         new CleanWebpackPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MyPlugin()
     ]
 }
