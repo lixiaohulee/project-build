@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const WebpackBuildNotifier = require('webpack-build-notifier')
+const { LifeCycleWebpackPlugin } = require('lifecycle-webpack-plugin')
 
 process.env.NODE_ENV = 'production'
 
@@ -60,6 +61,11 @@ module.exports = smp.wrap(merge(common, {
         new ProgressBarPlugin({
             clear: false
         }),
-        new WebpackBuildNotifier()
+        new WebpackBuildNotifier(),
+        new LifeCycleWebpackPlugin({
+            done: (compiler) => {
+                console.log('\n done \n', new Date());
+            }
+        })
     ]
 }))

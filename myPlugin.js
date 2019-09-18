@@ -1,21 +1,36 @@
-
+const fs = require('fs')
 
 function MyPlugin() {}
 
 MyPlugin.prototype.apply = function(compiler) {
-    compiler.hooks.emit.tap('MyPlugin', (compilation, callback) => {
-        // console.log(compilation.chunks.modules)
-        // callback()
-        // compilation.chunks.forEach(chunk => {
-        //     console.log(chunk)
-        // })
+    compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
         // console.log(compilation.assets)
-        // Object.keys(compilation.assets).forEach(key => {
-        //     console.log(compilation.assets[key].filename)
+        // compilation.chunks.forEach(chunk => {
+        //     console.log(1111, chunk.files)
+            // debugger
+            // chunk.files.forEach(filename => {
+                // if (filename.endsWith('.css')) {
+                //     let source = compilation.assets[filename].source()
+                //     console.log(source)
+                // }
+                // compilation.assets[filename] = {
+                //     source: () => 'hello world',
+                //     size: () => Buffer.byteLength('hello world', 'utf-8')
+                // }
+            // })
         // })
-        for(let filename in compilation.assets) {
-            // console.log(Object.keys(compilation.assets.))
-        }
+        compilation.options.module.rules.forEach(rule => {
+            // console.log(rule.use[])
+            if (Array.isArray(rule.use)) {
+                // console.log(rule.use)
+                rule.use.forEach(loader => {
+                    console.error(loader.loader)
+                    
+                })
+            }
+        })
+        // console.log(compilation.options.module.rules)
+        cb()
     })
 }
 
