@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const WebpackBuildNotifier = require('webpack-build-notifier')
-const { LifeCycleWebpackPlugin } = require('lifecycle-webpack-plugin')
 
 process.env.NODE_ENV = 'production'
 
@@ -14,7 +13,7 @@ const common = require('./webpack.common.config')
 const smp = new SpeedMeasurePlugin()
 
 module.exports = smp.wrap(merge(common, {
-    mode: 'production',
+    mode: 'development',
     devtool: 'cheap-module-source-map',
     optimization: {
         usedExports: true,
@@ -61,11 +60,6 @@ module.exports = smp.wrap(merge(common, {
         new ProgressBarPlugin({
             clear: false
         }),
-        new WebpackBuildNotifier(),
-        new LifeCycleWebpackPlugin({
-            done: (compiler) => {
-                console.log('\n done \n', new Date());
-            }
-        })
+        new WebpackBuildNotifier()
     ]
 }))

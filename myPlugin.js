@@ -4,32 +4,24 @@ function MyPlugin() {}
 
 MyPlugin.prototype.apply = function(compiler) {
     compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
-        // console.log(compilation.assets)
-        // compilation.chunks.forEach(chunk => {
-        //     console.log(1111, chunk.files)
-            // debugger
-            // chunk.files.forEach(filename => {
-                // if (filename.endsWith('.css')) {
-                //     let source = compilation.assets[filename].source()
-                //     console.log(source)
-                // }
-                // compilation.assets[filename] = {
-                //     source: () => 'hello world',
-                //     size: () => Buffer.byteLength('hello world', 'utf-8')
-                // }
-            // })
-        // })
-        compilation.options.module.rules.forEach(rule => {
-            // console.log(rule.use[])
-            if (Array.isArray(rule.use)) {
-                // console.log(rule.use)
-                rule.use.forEach(loader => {
-                    console.error(loader.loader)
-                    
-                })
+        console.log(Object.keys(compilation.assets))
+        const reg = /("([^\\\"]*(\\.)?)*")|('([^\\\']*(\\.)?)*')|(\/{2,}.*?(\r|\n))|(\/\*(\n|.)*?\*\/)|(\/\*\*\*\*\*\*\/)/g
+        Object.keys(compilation.assets).forEach(filename => {
+            let content = compilation.assets[filename].source()
+
+            console.log(content)
+            content = content.replace(reg, '')
+
+            compilation.assets[filename] = {
+                source() {
+                    return content
+                },
+
+                size() {
+                    return content.length
+                }
             }
         })
-        // console.log(compilation.options.module.rules)
         cb()
     })
 }
