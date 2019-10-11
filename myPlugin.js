@@ -3,28 +3,25 @@ const fs = require('fs')
 function MyPlugin() {}
 
 MyPlugin.prototype.apply = function(compiler) {
-    compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
-        console.log(Object.keys(compilation.assets))
-        const reg = /("([^\\\"]*(\\.)?)*")|('([^\\\']*(\\.)?)*')|(\/{2,}.*?(\r|\n))|(\/\*(\n|.)*?\*\/)|(\/\*\*\*\*\*\*\/)/g
-        Object.keys(compilation.assets).forEach(filename => {
-            let content = compilation.assets[filename].source()
+    // compiler.hooks.emit.tapAsync('MyPlugin', (compilation, cb) => {
+    //     let filelist = 'In this build:\n\n'
 
-            console.log(content)
-            content = content.replace(reg, '')
+    //     for (let filename in compilation.assets) {
+    //         filelist += '-' + filename + '\n'
+    //     }
 
-            compilation.assets[filename] = {
-                source() {
-                    return content
-                },
+    //     compilation.assets['filelist.md'] = {
+    //         source: () => filelist,
+    //         size: () => filelist.length
+    //     }
+    //     cb()
+    // })
 
-                size() {
-                    return content.length
-                }
-            }
-        })
-        cb()
-    })
+    // compiler.hooks.entryOption.tap('')
 }
 
 
 module.exports = MyPlugin
+
+
+

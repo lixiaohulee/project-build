@@ -1,14 +1,10 @@
 <!--
-@file MyHome.value
+@file myHome.value
 @author lixiaohu
-@since 2019-8-25 16:55:08
+@since 2019-10-11 15:52:17
 -->
 <template>
-    <section class="MyHome-wrapper">
-        <div class="test" dir="rtl" onclick="console.log(33)" style="width: 100px; height: 100px; backgroundColor: yellow;">
-            <span class="fuck" id="ss">hello world</span>
-        </div>
-    </section>
+    <section class="myHome-wrapper"></section>
 </template>
-<script src="./MyHome.js" type="text/ecmascript-6"></script>
-<style lang="less" src="./MyHome.less" rel="stylesheet/less" scoped></style>
+<script src="./myHome.js" type="text/ecmascript-6"></script>
+<style lang="less" src="./myHome.less" rel="stylesheet/less" scoped></style>

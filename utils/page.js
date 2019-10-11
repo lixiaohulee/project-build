@@ -84,6 +84,7 @@ inquirer.prompt([
 ]).then(answers => {
     const { pageName } = answers
     const pagePath = path.resolve(__dirname, `../src/page/${pageName}`)
+    const routerPath = path.resolve(__dirname, `../src/router`)
 
     if(!shell.which('git')) {
         console.error('can not use git')
@@ -103,6 +104,8 @@ inquirer.prompt([
                     writeFile(pagePath, `${pageName}.vue`, generateTemplate(templateSource, answers))
                     writeFile(pagePath, `${pageName}.less`, generateTemplate(styleSource, answers))
                     writeFile(pagePath, `${pageName}.js`, generateTemplate(jsSource, answers))
+
+                    readFile(routerPath, 'routerList.js', answers)
                 })
             })
         })
@@ -112,6 +115,25 @@ inquirer.prompt([
 function writeFile(path, filename, template) {
     fs.writeFile(`${path}/${filename}`, template, err => {
         if (err) throw err
+    })
+}
+
+function readFile(path, filename, answers) {
+    fs.readFile(`${path}/${filename}`, 'utf-8', (err, data) => {
+        if (err) throw err
+        let comma = ','
+        if (/},\n}/.test(data.toString())) {
+            comma = ''
+        }
+        let res = data.toString().replace(/export default {([\s\S]*)(\,)*\n}/, (rs, $1, $2) => {
+
+            return `export default {${$1}${comma}\n` + `    ${answers.description}: {\n` +
+                `        baseDir: \'${answers.pageName}\',\n` +
+                `        tplName: \'${answers.pageName}\'\n` +
+                "    }\n" + "}"
+            })
+
+        writeFile(path, filename, res)
     })
 }
 

@@ -13,7 +13,7 @@ const common = require('./webpack.common.config')
 const smp = new SpeedMeasurePlugin()
 
 module.exports = smp.wrap(merge(common, {
-    mode: 'development',
+    mode: 'production',
     devtool: 'cheap-module-source-map',
     optimization: {
         usedExports: true,

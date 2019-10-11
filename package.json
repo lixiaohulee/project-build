@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.config.js",
-    "start": "webpack-dashboard -- webpack-dev-server --open='Google Chrome' --config webpack.dev.config.js",
+    "start": "webpack-dev-server --open='Google Chrome' --config webpack.dev.config.js",
     "watch": "webpack --watch --config webpack.dev.config.js",
     "analyze": "webpack-bundle-analyzer dist/stats.json",
     "babel": "./node_modules/.bin/babel",
