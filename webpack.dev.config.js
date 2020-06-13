@@ -16,7 +16,8 @@ module.exports = merge(common, {
         hot: true,
         historyApiFallback: true,
         proxy: proxy,
-        port: port
+        port: port,
+        host: '0.0.0.0'
     },
     plugins: [
         new DashBoardPlugin()

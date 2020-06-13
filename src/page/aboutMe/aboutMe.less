@@ -4,5 +4,54 @@
 * @since 2019-10-11 15:53:57
 */
 .aboutMe-wrapper {
-    background-color: red;
+    height: 100%;
+    background:url('./img/we.jpeg') no-repeat center center;
+    background-size: 100% 100%;
+    position: relative;
+    .back {
+        width: 38px;
+        height: 38px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    .form-wrapper {
+        width: 330px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .username::placeholder,
+        .blessing::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .username,
+        .blessing,
+        .send {
+            width: 80%;
+            height: 30px;
+            display: block;
+            outline: none;
+            border: none;
+            resize: none;
+            margin: 15px auto;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.5);
+            text-indent: 10px;
+        }
+        .blessing {
+            height: 100px;
+        }
+        .send {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #f5b4bc;
+            border: none;
+            color: #ffffff;
+            margin-top: 30px;
+        }
+    }
 }

@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const MyPlugin = require('./myPlugin')
+const myLoader = require('./myLoader')
 
 const resolve = dir => path.resolve(__dirname, dir)
 const devMode = process.env.NODE_ENV !== 'production'
@@ -16,12 +16,14 @@ module.exports = {
     output: {
         filename: '[name].[hash].bundle.js',
         path: resolve('dist'),
-        chunkFilename: '[name].[contenthash].js'
+
+        chunkFilename: '[name].[chunkhash].js',
     },
     resolve: {
         alias: {
             '@': resolve('src'),
-            'api': resolve('src/api/api')
+            'api': resolve('src/api/api'),
+            'utils': resolve('utils')
         }
     },
     module: {
@@ -29,12 +31,18 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: ['babel-loader'],
-                include: resolve('src')
+                include: [
+                    resolve('src'),
+                    resolve('node_modules/view-design')
+                ]
             },
             {
                 test: /\.vue$/,
                 use: ['vue-loader'],
-                include: resolve('src')
+                include: [
+                    resolve('src'),
+                    resolve('node_modules/view-design')
+                ]
             },
             {
                 test: /\.less$/,
@@ -44,6 +52,11 @@ module.exports = {
                     'postcss-loader',
                     'less-loader'
                 ],
+            },
+            {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ],
+                include: [resolve('node_modules/view-design/dist/styles/iview.css')]
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
@@ -57,9 +70,12 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(woff|woff2|ttf|eot|otf)$/,
+                test: /\.(woff|woff2|ttf|eot|otf|mp3)$/,
                 use: ['file-loader'],
-                include: resolve('src')
+                include: [
+                    resolve('src'), 
+                    resolve('node_modules/view-design/dist/styles/fonts')
+                ]
             }
         ]
     },
@@ -72,6 +88,5 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
-        new MyPlugin()
     ]
 }

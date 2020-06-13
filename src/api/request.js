@@ -6,7 +6,7 @@
 import axios from 'axios'
 import interceptor from './interceptor'
 
-axios.defaults.baseURL = ''
+axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.method = 'post'
 axios.defaults.timeout = 1000 * 60
 

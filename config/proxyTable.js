@@ -1,5 +1,5 @@
 const proxyTable = {
-    '/api': 'https://example.com'
+    // '/api': 'http://localhost:3000'
 }
 
 module.exports = proxyTable

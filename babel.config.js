@@ -10,7 +10,13 @@ const presets = [
 ]
 const plugins = [
     [
-        "@babel/plugin-syntax-dynamic-import"
+        "@babel/plugin-syntax-dynamic-import",
+    ],
+    [
+        "import", {
+            "libraryName": "view-design",
+            "libraryDirectory": "src/components"
+        }
     ]
 ]
 

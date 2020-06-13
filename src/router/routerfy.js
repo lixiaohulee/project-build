@@ -21,4 +21,10 @@ Object.keys(routerList).forEach(key => {
     routerObj.routes.push(routerItem)
 })
 
+
+routerObj.routes.push({
+    path: '/',
+    component: () => import(`@/page/myHome/myHome.vue`)
+})
+
 export default routerObj

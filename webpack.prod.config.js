@@ -6,7 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const WebpackBuildNotifier = require('webpack-build-notifier')
-
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const UploadStaticFilePlugin = require('./UploadStaticFilePlugin')
 process.env.NODE_ENV = 'production'
 
 const common = require('./webpack.common.config')
@@ -49,6 +50,8 @@ module.exports = smp.wrap(merge(common, {
         }
     },
     plugins: [
+        new UploadStaticFilePlugin({}),
+        new CompressionWebpackPlugin(),
         // new WebpackDeepScopePlugin(),
         new BundleAnalyzerPlugin({
             generateStatsFile: true,

@@ -5,5 +5,9 @@
 
 
 export default {
-    testApi: '/api/testApi'
+    sendBlessing: '/api/sendblessing',
+    getBlessing: '/api/getBlessing',
+    register: '/api/register',
+    login: '/api/login',
+    getUserInfo: '/api/userInfo'
 }

@@ -1,0 +1,62 @@
+/**
+* @file drawing.less
+* @author lixiaohu
+* @since 2019-10-22 10:26:20
+*/
+.drawing-wrapper {
+    #clear,
+    #clear1,
+    #save {
+        margin: 0 auto;
+        display: inline-block;
+        padding: 5px 10px;
+        width: 50px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #eee;
+        background: #e1e1e1;
+        border-radius: 10px;
+        text-align: center;
+        margin: 20px auto;
+        cursor: pointer;
+    }
+    .suspension-ball {
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        top: 50%;
+        left: 0;
+    }
+    .rotate {
+        width: 60px;
+        height: 60px;
+        transform-origin: center;
+        animation: rotating 1s linear infinite;
+        transition: width 0.1s linear;
+        transition: height 0.1s linear;
+    }
+    @keyframes rotating {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .slide {
+        width: 180px;
+        height: 100%;
+        background: #cccccc;
+        position: fixed;
+        top: 0;
+        right: -180px;
+    }
+    .show-slide {
+        right: 0;
+        transition: right 0.1s linear;
+    }
+    .hide-slide {
+        right: -180px;
+        transition: right 0.1s linear;
+    }
+}
