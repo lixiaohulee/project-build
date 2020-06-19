@@ -8,9 +8,9 @@
         <template>
             <div class="layout">
                 <Layout>
-                    <Header :style="{position: 'fixed', width: '100%'}">
+                    <Header>
                         <Menu mode="horizontal" theme="dark" active-name="1">
-                            <div class="layout-logo"></div>
+                            <!-- <div class="layout-logo"></div> -->
                             <div class="layout-nav">
                                 <MenuItem name="1">
                                     <Icon type="ios-navigate"></Icon>
@@ -31,7 +31,7 @@
                             </div>
                         </Menu>
                     </Header>
-                    <Content :style="{margin: '88px 20px 0', background: '#fff', flex: 1}">
+                    <Content :style="{margin: '20px 20px 0', background: '#fff', flex: 1}">
                         Content
                     </Content>
                     <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
