@@ -32,7 +32,14 @@
                         </Menu>
                     </Header>
                     <Content :style="{margin: '20px 20px 0', background: '#fff', flex: 1}">
-                        Content
+                        <div class="card-wrapper">
+                            <Card style="width:310px" v-for="i in 10" :key="i.toString()" class="card">
+                                <div style="text-align:center">
+                                    <img src="./img/logo.png">
+                                    <h3>A high quality UI Toolkit based on Vue.js</h3>
+                                </div>
+                            </Card>
+                        </div>
                     </Content>
                     <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
                 </Layout>
