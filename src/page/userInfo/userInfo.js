@@ -25,6 +25,8 @@ export default {
                 if (code === 200) {
                     this.$Message.success(msg)
                     console.log(data)
+                    const { userInfo: { uuid } } = data
+                    localStorage.setItem('uuid', uuid)
                 }else {
                     this.$Message.error(msg)
                 }

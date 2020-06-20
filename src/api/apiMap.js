@@ -9,5 +9,6 @@ export default {
     getBlessing: '/api/getBlessing',
     register: '/api/register',
     login: '/api/login',
-    getUserInfo: '/api/userInfo'
+    getUserInfo: '/api/userInfo',
+    createGoods: '/api/createGoods'
 }

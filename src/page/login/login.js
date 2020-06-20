@@ -69,6 +69,7 @@ export default {
             api.login({ method, data }).then(res => {
                 const { code, msg, data } = res
                 if (code === 200) {
+                    console.log(data)
                     const { token, account } = data
                     localStorage.setItem('token', token)
                     localStorage.setItem('account', account)
